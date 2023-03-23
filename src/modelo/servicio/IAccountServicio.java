@@ -15,7 +15,7 @@ public interface IAccountServicio {
 	public AccMovement transferir(int accOrigen, int accDestino, double cantidad)
 			throws SaldoInsuficienteException, InstanceNotFoundException, UnsupportedOperationException ;
 		
-	public List<Account> getAccountsByEmpno(int empno) ;
+	public List<Account> getAccountsByEmpno(int empno) throws InstanceNotFoundException ;
 	public Account saveOrUpdate(Account d);
 	
 	public AccMovement autoTransferir(int accountNo, double cantidad)

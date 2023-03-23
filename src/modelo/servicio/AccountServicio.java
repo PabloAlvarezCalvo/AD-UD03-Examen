@@ -207,15 +207,33 @@ public class AccountServicio implements IAccountServicio {
 	}
 
 	@Override
-	public List<Account> getAccountsByEmpno(int empno) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Account> getAccountsByEmpno(int empno) throws InstanceNotFoundException {
+		//TODO Testear
+		SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		List<Account> accounts = session.createQuery("SELECT e.accounts FROM Empleado e WHERE e.empno = :id").setParameter("id", empno).list();
+		if (accounts == null) {
+			throw new InstanceNotFoundException(Account.class.getName());
+		}
+
+		session.close();
+		return accounts;
 	}
 
 	@Override
 	public List<Empleado> getTitularesByAccountId(int accId) throws InstanceNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO Testear
+		SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		List<Empleado> empleados = session.createQuery("SELECT e FROM Empleado WHERE e.account.accountno = :id").setParameter("id", accId).list();
+		if (empleados == null) {
+			throw new InstanceNotFoundException(Account.class.getName());
+		}
+
+		session.close();
+		return empleados;
 	}
 
 	@Override
