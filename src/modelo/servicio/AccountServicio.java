@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -207,15 +208,22 @@ public class AccountServicio implements IAccountServicio {
 	}
 
 	@Override
-	public List<Account> getAccountsByEmpno(int empno) throws InstanceNotFoundException {
+	public List<Account> getAccountsByEmpno(int empno) {
 		//TODO Testear
 		SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
+		List<Account> accounts = null;
 		
-		List<Account> accounts = session.createQuery("SELECT e.accounts FROM Empleado e WHERE e.empno = :id").setParameter("id", empno).list();
-		if (accounts == null) {
-			throw new InstanceNotFoundException(Account.class.getName());
+		try {
+			accounts = session.createQuery("SELECT a FROM Empleado e INNER JOIN Empleado.accounts a WHERE e.empno = :id").setParameter("id", empno).list();
+			
+			if (accounts == null) {
+				throw new InstanceNotFoundException(Account.class.getName());
+			}
+		} catch(Exception e) {
+			System.out.println("Se ha producido una excepción en getAccountsByEmpno: " + e.getMessage());
 		}
+		
 
 		session.close();
 		return accounts;

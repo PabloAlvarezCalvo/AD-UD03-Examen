@@ -72,7 +72,7 @@ public class Account implements java.io.Serializable {
 		this.employees = employees;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountByAccountDestId")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountDestino")
 	public Set<AccMovement> getAccMovementsForAccountDestId() {
 		return this.accMovementsForAccountDestId;
 	}
@@ -81,7 +81,7 @@ public class Account implements java.io.Serializable {
 		this.accMovementsForAccountDestId = accMovementsForAccountDestId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountByAccountOriginId")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountOrigen")
 	public Set<AccMovement> getAccMovementsForAccountOriginId() {
 		return this.accMovementsForAccountOriginId;
 	}

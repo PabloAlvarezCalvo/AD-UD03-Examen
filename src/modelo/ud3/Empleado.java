@@ -104,7 +104,6 @@ public class Empleado implements java.io.Serializable {
 		this.job = job;
 	}
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "HIREDATE", length = 10)
 	public LocalDate getHiredate() {
 		return this.hiredate;

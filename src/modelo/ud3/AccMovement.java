@@ -81,7 +81,7 @@ public class AccMovement implements java.io.Serializable {
 		this.amount = amount;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+
 	@Column(name = "DATETIME", nullable = false, length = 23)
 	public LocalDateTime getDatetime() {
 		return this.datetime;
