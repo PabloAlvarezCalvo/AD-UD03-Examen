@@ -195,64 +195,55 @@ public class AccountServicio implements IAccountServicio {
 			if (account != null) {
 				
 				
-				//session.remove(account); Así estaba antes
+				//session.remove(account); //Original
 				
-				//Aqui para CascadeType.REMOVE
-				//session.remove(account);
+				/*TODO
+				 * 
+				 * 
+				 * 
+				 * 
+				 */
 				/*
-				for (AccMovement accMoves : account.getAccMovementsForAccountOriginId()) {
-					session.remove(accMoves);
-				}
+				List<Empleado> titulares = getTitularesByAccountId(account.getAccountno());
+				account.getAmount();
 				
-				for (AccMovement accMoves : account.getAccMovementsForAccountDestId()) {
-					session.remove(accMoves);
-				}
-				*/
-				List<Empleado> emps = getTitularesByAccountId(account.getAccountno());
-				
-				for (Empleado e : emps) {
-					Iterator<Account> iterador = e.getAccounts().iterator();
-					while (iterador.hasNext()) {
-						Account cuenta = iterador.next();
-						session.remove(cuenta);
-					}
+				for (Empleado e : titulares) {
+					e.getAccounts();
+					e.getEname();
+					e.getAccounts().remove(account);
+					account.getEmployees().remove(e);
 				}
 				
 				session.remove(account);
-				
-				//Aquí la modificación para persistir con Orphan Delete
-				/*
-				Iterator<AccMovement> iteradorOrigen = account.getAccMovementsForAccountOriginId().iterator();
-				Iterator<AccMovement> iteradorDestino = account.getAccMovementsForAccountDestId().iterator();
-				
-				while(iteradorOrigen.hasNext()) {
-					AccMovement accMovs = iteradorOrigen.next();
-					accMovs.setAccountOrigen(null);
-					accMovs.setAccountDestino(null);
-					account.getAccMovementsForAccountOriginId().remove(accMovs);
-				}
-				
-				while(iteradorDestino.hasNext()) {
-					AccMovement accMovs = iteradorDestino.next();
-					accMovs.setAccountOrigen(null);
-					accMovs.setAccountDestino(null);
-					account.getAccMovementsForAccountDestId().remove(accMovs);
-				}
 				*/
 				
-				/*
+				//Aquí la modificación para persistir con Orphan Delete
+				//No funciona, solo borra las cuentas con el único movimiento de creación
+				
 				for (AccMovement accMovs : account.getAccMovementsForAccountOriginId()) {
 					accMovs.setAccountOrigen(null);
+					accMovs.setAccountDestino(null);
 					account.getAccMovementsForAccountOriginId().remove(accMovs);
+					session.remove(accMovs);
 				}
 				
 				for (AccMovement accMovs : account.getAccMovementsForAccountDestId()) {
+					accMovs.setAccountOrigen(null);
 					accMovs.setAccountDestino(null);
 					account.getAccMovementsForAccountDestId().remove(accMovs);
+					session.remove(accMovs);
+				}
+				
+				Iterator<Empleado> iterador = account.getEmployees().iterator();
+				
+				while (iterador.hasNext()) {
+					Empleado emp = iterador.next();
+					emp.getAccounts().remove(account);
+					account.getEmployees().remove(emp);
 				}
 				
 				session.remove(account);
-				*/
+				
 				
 			} else {
 				throw new InstanceNotFoundException(Account.class.getName() + " id: " + accId);

@@ -76,8 +76,8 @@ public class Account implements java.io.Serializable {
 	public void setEmployees(Set<Empleado> employees) {
 		this.employees = employees;
 	}
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountDestino", cascade = CascadeType.PERSIST, orphanRemoval = true)
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountDestino", cascade = CascadeType.REMOVE)
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountDestino", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	public Set<AccMovement> getAccMovementsForAccountDestId() {
 		return this.accMovementsForAccountDestId;
 	}
@@ -86,8 +86,7 @@ public class Account implements java.io.Serializable {
 		this.accMovementsForAccountDestId = accMovementsForAccountDestId;
 	}
 
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountOrigen", cascade = CascadeType.PERSIST, orphanRemoval = true)
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountDestino", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountOrigen", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	public Set<AccMovement> getAccMovementsForAccountOriginId() {
 		return this.accMovementsForAccountOriginId;
 	}
