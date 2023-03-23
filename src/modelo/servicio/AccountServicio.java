@@ -3,6 +3,7 @@ package modelo.servicio;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -177,6 +178,12 @@ public class AccountServicio implements IAccountServicio {
 	
 	
 	public boolean delete(int accId) throws InstanceNotFoundException {
+		/*TODO Modificar
+		 * 8. Modifica el proyecto para que la implementación del método
+		 * public boolean delete(int accId) throws InstanceNotFoundException
+		 * permita eliminar una cuenta y todos sus movimientos en una transacción. 
+		 * Debes crear movimientos modificando previamente el importe de la cuenta a través de la interfaz gráfica.
+		*/
 		SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
@@ -188,7 +195,21 @@ public class AccountServicio implements IAccountServicio {
 			if (account != null) {
 				
 				
-				session.remove(account);
+				//session.remove(account); Así estaba antes
+				
+				//Aquí la modificación para persistir con Orphan Delete
+				for (AccMovement accMovs : account.getAccMovementsForAccountOriginId()) {
+					accMovs.setAccountOrigen(null);
+					account.getAccMovementsForAccountOriginId().remove(accMovs);
+				}
+				
+				for (AccMovement accMovs : account.getAccMovementsForAccountDestId()) {
+					accMovs.setAccountOrigen(null);
+					account.getAccMovementsForAccountDestId().remove(accMovs);
+				}
+				
+				session.persist(account);
+				
 			} else {
 				throw new InstanceNotFoundException(Account.class.getName() + " id: " + accId);
 			}
@@ -209,7 +230,6 @@ public class AccountServicio implements IAccountServicio {
 
 	@Override
 	public List<Account> getAccountsByEmpno(int empno) {
-		//TODO Testear
 		SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		List<Account> accounts = null;
@@ -248,7 +268,6 @@ public class AccountServicio implements IAccountServicio {
 
 	@Override
 	public Account addAccountToEmployee(int empno, Account acc) {
-		// TODO Testear
 		//Para que cree una nueva cuenta asociada a un empleado. 
 		//Asegúrate de crear la relación de forma bidireccional antes de guardar los cambios. 
 		//Utiliza una transacción. (1,25 puntos)

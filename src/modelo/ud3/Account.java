@@ -4,6 +4,8 @@ package modelo.ud3;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -71,8 +73,7 @@ public class Account implements java.io.Serializable {
 	public void setEmployees(Set<Empleado> employees) {
 		this.employees = employees;
 	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountDestino")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountDestino", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	public Set<AccMovement> getAccMovementsForAccountDestId() {
 		return this.accMovementsForAccountDestId;
 	}
@@ -81,7 +82,7 @@ public class Account implements java.io.Serializable {
 		this.accMovementsForAccountDestId = accMovementsForAccountDestId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountOrigen")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountOrigen", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	public Set<AccMovement> getAccMovementsForAccountOriginId() {
 		return this.accMovementsForAccountOriginId;
 	}
@@ -94,6 +95,7 @@ public class Account implements java.io.Serializable {
 		this.getEmployees().add(empleado);
 		empleado.getAccounts().add(this);
 	}
+	
 
 	@Override
 	public String toString() {
