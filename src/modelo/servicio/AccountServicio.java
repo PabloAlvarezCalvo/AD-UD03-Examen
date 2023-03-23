@@ -249,8 +249,39 @@ public class AccountServicio implements IAccountServicio {
 	@Override
 	public Account addAccountToEmployee(int empno, Account acc) {
 		// TODO Testear
+		//Para que cree una nueva cuenta asociada a un empleado. 
+		//Asegúrate de crear la relación de forma bidireccional antes de guardar los cambios. 
+		//Utiliza una transacción. (1,25 puntos)
 		
-		return null;
+		SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		Empleado empleado = null;
+
+		try {
+			tx = session.beginTransaction();
+
+			
+			empleado = session.get(Empleado.class, empno);
+			
+			if (empleado != null) {
+				empleado.addAccount(acc);
+			}
+			
+			session.save(empleado);
+			session.save(acc);
+			
+			tx.commit();
+		} catch (Exception ex) {
+			System.out.println("Ha ocurrido una excepción en addAccountToEmployee: " + ex.getMessage());
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw ex;
+		} finally {
+			session.close();
+		}
+		return acc;
 	}
 
 

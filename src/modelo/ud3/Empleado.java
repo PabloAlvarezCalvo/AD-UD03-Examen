@@ -151,5 +151,10 @@ public class Empleado implements java.io.Serializable {
 	public void setEmployees(Set<Empleado> employees) {
 		this.employees = employees;
 	}
+	
+	public void addAccount(Account account) {
+		this.getAccounts().add(account);
+		account.getEmployees().add(this);
+	}
 
 }

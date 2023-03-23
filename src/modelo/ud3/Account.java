@@ -89,6 +89,11 @@ public class Account implements java.io.Serializable {
 	public void setAccMovementsForAccountOriginId(Set<AccMovement> accMovementsForAccountOriginId) {
 		this.accMovementsForAccountOriginId = accMovementsForAccountOriginId;
 	}
+	
+	public void addEmployee(Empleado empleado) {
+		this.getEmployees().add(empleado);
+		empleado.getAccounts().add(this);
+	}
 
 	@Override
 	public String toString() {
