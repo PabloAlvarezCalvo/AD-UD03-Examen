@@ -203,43 +203,13 @@ public class AccountServicio implements IAccountServicio {
 				 * 
 				 * 
 				 */
-				/*
-				List<Empleado> titulares = getTitularesByAccountId(account.getAccountno());
-				account.getAmount();
-				
-				for (Empleado e : titulares) {
-					e.getAccounts();
-					e.getEname();
-					e.getAccounts().remove(account);
-					account.getEmployees().remove(e);
-				}
-				
-				session.remove(account);
-				*/
-				
 				//Aquí la modificación para persistir con Orphan Delete
-				//No funciona, solo borra las cuentas con el único movimiento de creación
+				//No funciona, solo borra las cuentas con el único titular porque no es capaz de iterar
 				
-				for (AccMovement accMovs : account.getAccMovementsForAccountOriginId()) {
-					accMovs.setAccountOrigen(null);
-					accMovs.setAccountDestino(null);
-					account.getAccMovementsForAccountOriginId().remove(accMovs);
-					session.remove(accMovs);
-				}
-				
-				for (AccMovement accMovs : account.getAccMovementsForAccountDestId()) {
-					accMovs.setAccountOrigen(null);
-					accMovs.setAccountDestino(null);
-					account.getAccMovementsForAccountDestId().remove(accMovs);
-					session.remove(accMovs);
-				}
-				
-				Iterator<Empleado> iterador = account.getEmployees().iterator();
-				
-				while (iterador.hasNext()) {
-					Empleado emp = iterador.next();
-					emp.getAccounts().remove(account);
-					account.getEmployees().remove(emp);
+				Set<Empleado> titulares = account.getEmployees();	
+				for (Empleado t : titulares) {
+					t.getAccounts().remove(account);
+					account.getEmployees().remove(t);
 				}
 				
 				session.remove(account);
