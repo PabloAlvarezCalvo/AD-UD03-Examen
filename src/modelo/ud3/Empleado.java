@@ -44,7 +44,7 @@ public class Empleado implements java.io.Serializable {
 	public Empleado() {
 	}
 
-	public Empleado(Department department, Empleado employee, String ename, String job, Date hiredate, BigDecimal sal,
+	public Empleado(Department department, Empleado employee, String ename, String job, LocalDate hiredate, BigDecimal sal,
 			BigDecimal comm, Set<Account> accounts, Set<Empleado> employees) {
 		this.department = department;
 		this.employee = employee;
@@ -109,11 +109,11 @@ public class Empleado implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "HIREDATE", length = 10)
-	public Date getHiredate() {
+	public LocalDate getHiredate() {
 		return this.hiredate;
 	}
 
-	public void setHiredate(Date hiredate) {
+	public void setHiredate(LocalDate hiredate) {
 		this.hiredate = hiredate;
 	}
 

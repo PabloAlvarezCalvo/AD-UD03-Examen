@@ -33,7 +33,7 @@ public class AccMovement implements java.io.Serializable {
 	}
 
 	public AccMovement(Account accountByAccountDestId, Account accountByAccountOriginId, BigDecimal amount,
-			Date datetime) {
+			LocalDateTime datetime) {
 		this.accountByAccountDestId = accountByAccountDestId;
 		this.accountByAccountOriginId = accountByAccountOriginId;
 		this.amount = amount;
@@ -83,11 +83,11 @@ public class AccMovement implements java.io.Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATETIME", nullable = false, length = 23)
-	public Date getDatetime() {
+	public LocalDateTime getDatetime() {
 		return this.datetime;
 	}
 
-	public void setDatetime(Date datetime) {
+	public void setDatetime(LocalDateTime datetime) {
 		this.datetime = datetime;
 	}
 
