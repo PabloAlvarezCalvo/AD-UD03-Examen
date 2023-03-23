@@ -32,10 +32,10 @@ public class AccMovement implements java.io.Serializable {
 	public AccMovement() {
 	}
 
-	public AccMovement(Account accountByAccountDestId, Account accountByAccountOriginId, BigDecimal amount,
+	public AccMovement(Account accountDestino, Account accountOrigen, BigDecimal amount,
 			LocalDateTime datetime) {
-		this.accountDestino = accountByAccountDestId;
-		this.accountOrigen = accountByAccountOriginId;
+		this.accountDestino = accountDestino;
+		this.accountOrigen = accountOrigen;
 		this.amount = amount;
 		this.datetime = datetime;
 	}
@@ -54,22 +54,22 @@ public class AccMovement implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_DEST_ID", nullable = false)
-	public Account getAccountByAccountDestId() {
+	public Account getAccountDestino() {
 		return this.accountDestino;
 	}
 
-	public void setAccountByAccountDestId(Account accountByAccountDestId) {
-		this.accountDestino = accountByAccountDestId;
+	public void setAccountDestino(Account accountDestino) {
+		this.accountDestino = accountDestino;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_ORIGIN_ID", nullable = false)
-	public Account getAccountByAccountOriginId() {
+	public Account getAccountOrigen() {
 		return this.accountOrigen;
 	}
 
-	public void setAccountByAccountOriginId(Account accountByAccountOriginId) {
-		this.accountOrigen = accountByAccountOriginId;
+	public void setAccountOrigen(Account accountOrigen) {
+		this.accountOrigen = accountOrigen;
 	}
 
 	@Column(name = "AMOUNT", nullable = false, scale = 4)

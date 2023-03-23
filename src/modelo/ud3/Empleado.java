@@ -58,12 +58,12 @@ public class Empleado implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "EMPLOYEENO", unique = true, nullable = false)
-	public Integer getEmployeeno() {
+	public Integer getEmpno() {
 		return this.empno;
 	}
 
-	public void setEmployeeno(Integer employeeno) {
-		this.empno = employeeno;
+	public void setEmpno(Integer empno) {
+		this.empno = empno;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
