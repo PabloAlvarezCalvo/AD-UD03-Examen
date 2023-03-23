@@ -17,17 +17,17 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "DEPARTMENT", catalog = "empresa_prueba_ud3")
-public class Department implements java.io.Serializable {
+public class Departamento implements java.io.Serializable {
 
 	private Integer deptno;
 	private String dname;
 	private String loc;
 	private Set<Empleado> employees = new HashSet<Empleado>(0);
 
-	public Department() {
+	public Departamento() {
 	}
 
-	public Department(String dname, String loc, Set<Empleado> employees) {
+	public Departamento(String dname, String loc, Set<Empleado> employees) {
 		this.dname = dname;
 		this.loc = loc;
 		this.employees = employees;

@@ -31,7 +31,7 @@ public class Empleado implements java.io.Serializable {
 	@Id
 	@Column(name="employeeno", unique = true, nullable = false)
 	private Integer empno;
-	private Department department;
+	private Departamento department;
 	private Empleado employee;
 	private String ename;
 	private String job;
@@ -44,7 +44,7 @@ public class Empleado implements java.io.Serializable {
 	public Empleado() {
 	}
 
-	public Empleado(Department department, Empleado employee, String ename, String job, LocalDate hiredate, BigDecimal sal,
+	public Empleado(Departamento department, Empleado employee, String ename, String job, LocalDate hiredate, BigDecimal sal,
 			BigDecimal comm, Set<Account> accounts, Set<Empleado> employees) {
 		this.department = department;
 		this.employee = employee;
@@ -71,11 +71,11 @@ public class Empleado implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DEPARTMENTNO")
-	public Department getDepartment() {
+	public Departamento getDepartment() {
 		return this.department;
 	}
 
-	public void setDepartment(Department department) {
+	public void setDepartment(Departamento department) {
 		this.department = department;
 	}
 

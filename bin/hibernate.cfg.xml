@@ -20,7 +20,7 @@
         
         <mapping class="modelo.ud3.AccMovement" />
         <mapping class="modelo.ud3.Account" />
-        <mapping class="modelo.ud3.Department" />
+        <mapping class="modelo.ud3.Departamento" />
         <mapping class="modelo.ud3.Empleado" />
     </session-factory>
 </hibernate-configuration>
