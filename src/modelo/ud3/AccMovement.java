@@ -23,9 +23,10 @@ import javax.persistence.TemporalType;
 @Table(name = "ACC_MOVEMENT", catalog = "empresa_prueba_ud3")
 public class AccMovement implements java.io.Serializable {
 
+	@Id
 	private Integer accountMovId;
-	private Account accountByAccountDestId;
-	private Account accountByAccountOriginId;
+	private Account accountDestino; //Refactor rename
+	private Account accountOrigen; //Refactor rename
 	private BigDecimal amount;
 	private LocalDateTime datetime; //TODO requiere @Temporal ??
 
@@ -34,8 +35,8 @@ public class AccMovement implements java.io.Serializable {
 
 	public AccMovement(Account accountByAccountDestId, Account accountByAccountOriginId, BigDecimal amount,
 			LocalDateTime datetime) {
-		this.accountByAccountDestId = accountByAccountDestId;
-		this.accountByAccountOriginId = accountByAccountOriginId;
+		this.accountDestino = accountByAccountDestId;
+		this.accountOrigen = accountByAccountOriginId;
 		this.amount = amount;
 		this.datetime = datetime;
 	}
@@ -55,21 +56,21 @@ public class AccMovement implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_DEST_ID", nullable = false)
 	public Account getAccountByAccountDestId() {
-		return this.accountByAccountDestId;
+		return this.accountDestino;
 	}
 
 	public void setAccountByAccountDestId(Account accountByAccountDestId) {
-		this.accountByAccountDestId = accountByAccountDestId;
+		this.accountDestino = accountByAccountDestId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_ORIGIN_ID", nullable = false)
 	public Account getAccountByAccountOriginId() {
-		return this.accountByAccountOriginId;
+		return this.accountOrigen;
 	}
 
 	public void setAccountByAccountOriginId(Account accountByAccountOriginId) {
-		this.accountByAccountOriginId = accountByAccountOriginId;
+		this.accountOrigen = accountByAccountOriginId;
 	}
 
 	@Column(name = "AMOUNT", nullable = false, scale = 4)
