@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,6 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ACCOUNT", catalog = "empresa_prueba_ud3")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Account implements java.io.Serializable {
 
 	private Integer accountno;
