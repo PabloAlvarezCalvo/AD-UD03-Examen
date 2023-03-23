@@ -231,11 +231,13 @@ public class AccountServicio implements IAccountServicio {
 
 	@Override
 	public List<Empleado> getTitularesByAccountId(int accId) throws InstanceNotFoundException {
-		//TODO Testear
 		SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		List<Empleado> empleados = session.createQuery("SELECT e FROM Empleado e WHERE e.accounts.accountno LIKE :id").setParameter("id", accId).list();
+		//Desde extremo empleado
+		//List<Empleado> empleados = session.createQuery("SELECT e FROM Empleado e JOIN e.accounts a WHERE a.accountno LIKE :id").setParameter("id", accId).list();
+		//Desde extremo account, supongo que esto tiene más sentido en base a la info de búsqueda recibida
+		List<Empleado> empleados = session.createQuery("SELECT e FROM Account a JOIN a.employees e WHERE a.accountno LIKE :id").setParameter("id", accId).list();
 		if (empleados == null) {
 			throw new InstanceNotFoundException(Account.class.getName());
 		}
