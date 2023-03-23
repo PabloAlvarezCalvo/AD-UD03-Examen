@@ -197,21 +197,48 @@ public class AccountServicio implements IAccountServicio {
 				
 				//session.remove(account); Así estaba antes
 				
+				//Aqui para CascadeType.REMOVE
+				//session.remove(account);
+				/*
+				for (AccMovement accMoves : account.getAccMovementsForAccountOriginId()) {
+					session.remove(accMoves);
+				}
+				
+				for (AccMovement accMoves : account.getAccMovementsForAccountDestId()) {
+					session.remove(accMoves);
+				}
+				*/
+				List<Empleado> emps = getTitularesByAccountId(account.getAccountno());
+				
+				for (Empleado e : emps) {
+					Iterator<Account> iterador = e.getAccounts().iterator();
+					while (iterador.hasNext()) {
+						Account cuenta = iterador.next();
+						session.remove(cuenta);
+					}
+				}
+				
+				session.remove(account);
+				
 				//Aquí la modificación para persistir con Orphan Delete
+				/*
 				Iterator<AccMovement> iteradorOrigen = account.getAccMovementsForAccountOriginId().iterator();
 				Iterator<AccMovement> iteradorDestino = account.getAccMovementsForAccountDestId().iterator();
 				
 				while(iteradorOrigen.hasNext()) {
 					AccMovement accMovs = iteradorOrigen.next();
 					accMovs.setAccountOrigen(null);
+					accMovs.setAccountDestino(null);
 					account.getAccMovementsForAccountOriginId().remove(accMovs);
 				}
 				
 				while(iteradorDestino.hasNext()) {
 					AccMovement accMovs = iteradorDestino.next();
+					accMovs.setAccountOrigen(null);
 					accMovs.setAccountDestino(null);
 					account.getAccMovementsForAccountDestId().remove(accMovs);
 				}
+				*/
 				
 				/*
 				for (AccMovement accMovs : account.getAccMovementsForAccountOriginId()) {
@@ -223,8 +250,9 @@ public class AccountServicio implements IAccountServicio {
 					accMovs.setAccountDestino(null);
 					account.getAccMovementsForAccountDestId().remove(accMovs);
 				}
+				
+				session.remove(account);
 				*/
-				session.persist(account);
 				
 			} else {
 				throw new InstanceNotFoundException(Account.class.getName() + " id: " + accId);
