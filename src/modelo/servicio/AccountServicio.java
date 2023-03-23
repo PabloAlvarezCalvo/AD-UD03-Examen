@@ -215,7 +215,7 @@ public class AccountServicio implements IAccountServicio {
 		List<Account> accounts = null;
 		
 		try {
-			accounts = session.createQuery("SELECT a FROM Empleado e INNER JOIN Empleado.accounts a WHERE e.empno = :id").setParameter("id", empno).list();
+			accounts = session.createQuery("SELECT e.accounts FROM Empleado e WHERE e.empno LIKE :id").setParameter("id", empno).list();
 			
 			if (accounts == null) {
 				throw new InstanceNotFoundException(Account.class.getName());
@@ -235,7 +235,7 @@ public class AccountServicio implements IAccountServicio {
 		SessionFactory sessionFactory = SessionFactoryUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		List<Empleado> empleados = session.createQuery("SELECT e FROM Empleado WHERE e.account.accountno = :id").setParameter("id", accId).list();
+		List<Empleado> empleados = session.createQuery("SELECT e FROM Empleado e WHERE e.accounts.accountno LIKE :id").setParameter("id", accId).list();
 		if (empleados == null) {
 			throw new InstanceNotFoundException(Account.class.getName());
 		}
@@ -246,7 +246,8 @@ public class AccountServicio implements IAccountServicio {
 
 	@Override
 	public Account addAccountToEmployee(int empno, Account acc) {
-		// TODO Auto-generated method stub
+		// TODO Testear
+		
 		return null;
 	}
 

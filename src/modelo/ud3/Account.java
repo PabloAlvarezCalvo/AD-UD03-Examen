@@ -90,4 +90,9 @@ public class Account implements java.io.Serializable {
 		this.accMovementsForAccountOriginId = accMovementsForAccountOriginId;
 	}
 
+	@Override
+	public String toString() {
+		return "Account [accountno=" + accountno + ", amount=" + amount + "]";
+	}
+
 }
