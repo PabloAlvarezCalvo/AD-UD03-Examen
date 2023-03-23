@@ -23,7 +23,6 @@ import javax.persistence.TemporalType;
 @Table(name = "ACC_MOVEMENT", catalog = "empresa_prueba_ud3")
 public class AccMovement implements java.io.Serializable {
 
-	@Id
 	private Integer accountMovId;
 	private Account accountDestino; //Refactor rename
 	private Account accountOrigen; //Refactor rename

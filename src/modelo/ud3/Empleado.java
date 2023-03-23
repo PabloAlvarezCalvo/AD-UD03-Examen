@@ -28,8 +28,6 @@ import javax.persistence.TemporalType;
 @Table(name = "EMPLOYEE", catalog = "empresa_prueba_ud3")
 public class Empleado implements java.io.Serializable {
 
-	@Id
-	@Column(name="employeeno", unique = true, nullable = false)
 	private Integer empno;
 	private Departamento department;
 	private Empleado employee;
@@ -59,7 +57,6 @@ public class Empleado implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "EMPLOYEENO", unique = true, nullable = false)
 	public Integer getEmployeeno() {
 		return this.empno;
