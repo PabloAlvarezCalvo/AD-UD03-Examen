@@ -2,6 +2,7 @@ package modelo.ud3;
 // Generated 18:24:25, 23 de mar. de 2023 by Hibernate Tools 4.3.6.Final
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class AccMovement implements java.io.Serializable {
 	private Account accountByAccountDestId;
 	private Account accountByAccountOriginId;
 	private BigDecimal amount;
-	private Date datetime;
+	private LocalDateTime datetime; //TODO requiere @Temporal ??
 
 	public AccMovement() {
 	}

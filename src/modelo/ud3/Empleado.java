@@ -2,6 +2,7 @@ package modelo.ud3;
 // Generated 18:24:25, 23 de mar. de 2023 by Hibernate Tools 4.3.6.Final
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,12 +28,14 @@ import javax.persistence.TemporalType;
 @Table(name = "EMPLOYEE", catalog = "empresa_prueba_ud3")
 public class Empleado implements java.io.Serializable {
 
-	private Integer employeeno;
+	@Id
+	@Column(name="employeeno", unique = true, nullable = false)
+	private Integer empno;
 	private Department department;
 	private Empleado employee;
 	private String ename;
 	private String job;
-	private Date hiredate;
+	private LocalDate hiredate;
 	private BigDecimal sal;
 	private BigDecimal comm;
 	private Set<Account> accounts = new HashSet<Account>(0);
@@ -59,11 +62,11 @@ public class Empleado implements java.io.Serializable {
 
 	@Column(name = "EMPLOYEENO", unique = true, nullable = false)
 	public Integer getEmployeeno() {
-		return this.employeeno;
+		return this.empno;
 	}
 
 	public void setEmployeeno(Integer employeeno) {
-		this.employeeno = employeeno;
+		this.empno = employeeno;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
