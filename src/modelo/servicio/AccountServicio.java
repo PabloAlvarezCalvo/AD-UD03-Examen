@@ -198,16 +198,32 @@ public class AccountServicio implements IAccountServicio {
 				//session.remove(account); Así estaba antes
 				
 				//Aquí la modificación para persistir con Orphan Delete
+				Iterator<AccMovement> iteradorOrigen = account.getAccMovementsForAccountOriginId().iterator();
+				Iterator<AccMovement> iteradorDestino = account.getAccMovementsForAccountDestId().iterator();
+				
+				while(iteradorOrigen.hasNext()) {
+					AccMovement accMovs = iteradorOrigen.next();
+					accMovs.setAccountOrigen(null);
+					account.getAccMovementsForAccountOriginId().remove(accMovs);
+				}
+				
+				while(iteradorDestino.hasNext()) {
+					AccMovement accMovs = iteradorDestino.next();
+					accMovs.setAccountDestino(null);
+					account.getAccMovementsForAccountDestId().remove(accMovs);
+				}
+				
+				/*
 				for (AccMovement accMovs : account.getAccMovementsForAccountOriginId()) {
 					accMovs.setAccountOrigen(null);
 					account.getAccMovementsForAccountOriginId().remove(accMovs);
 				}
 				
 				for (AccMovement accMovs : account.getAccMovementsForAccountDestId()) {
-					accMovs.setAccountOrigen(null);
+					accMovs.setAccountDestino(null);
 					account.getAccMovementsForAccountDestId().remove(accMovs);
 				}
-				
+				*/
 				session.persist(account);
 				
 			} else {
@@ -216,7 +232,7 @@ public class AccountServicio implements IAccountServicio {
 			tx.commit();
 			exito = true;
 		} catch (Exception ex) {
-			System.out.println("Ha ocurrido una excepción en create Dept: " + ex.getMessage());
+			System.out.println("Ha ocurrido una excepción en delete Account: " + ex.getMessage());
 			if (tx != null) {
 				tx.rollback();
 			}
