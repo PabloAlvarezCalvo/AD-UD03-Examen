@@ -2,9 +2,10 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
+<!-- Revisar si estos filtros son a nivel tabla o a nivel clases para el renaming -->
   <table-filter match-catalog="empresa_prueba_ud3" match-name="ACCOUNT"/>
   <table-filter match-catalog="empresa_prueba_ud3" match-name="ACC_MOVEMENT"/>
   <table-filter match-catalog="empresa_prueba_ud3" match-name="DEPARTMENT"/>
-  <table-filter match-catalog="empresa_prueba_ud3" match-name="EMPLOYEE"/>
+  <table-filter match-catalog="empresa_prueba_ud3" match-name="EMPLOYEE"/> 
   <table-filter match-catalog="empresa_prueba_ud3" match-name="EMPLOYEE_ACCOUNT"/>
 </hibernate-reverse-engineering>

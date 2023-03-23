@@ -23,7 +23,7 @@ public class Account implements java.io.Serializable {
 
 	private Integer accountno;
 	private BigDecimal amount;
-	private Set<Employee> employees = new HashSet<Employee>(0);
+	private Set<Empleado> employees = new HashSet<Empleado>(0);
 	private Set<AccMovement> accMovementsForAccountDestId = new HashSet<AccMovement>(0);
 	private Set<AccMovement> accMovementsForAccountOriginId = new HashSet<AccMovement>(0);
 
@@ -34,7 +34,7 @@ public class Account implements java.io.Serializable {
 		this.amount = amount;
 	}
 
-	public Account(BigDecimal amount, Set<Employee> employees, Set<AccMovement> accMovementsForAccountDestId,
+	public Account(BigDecimal amount, Set<Empleado> employees, Set<AccMovement> accMovementsForAccountDestId,
 			Set<AccMovement> accMovementsForAccountOriginId) {
 		this.amount = amount;
 		this.employees = employees;
@@ -64,11 +64,11 @@ public class Account implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "accounts")
-	public Set<Employee> getEmployees() {
+	public Set<Empleado> getEmployees() {
 		return this.employees;
 	}
 
-	public void setEmployees(Set<Employee> employees) {
+	public void setEmployees(Set<Empleado> employees) {
 		this.employees = employees;
 	}
 

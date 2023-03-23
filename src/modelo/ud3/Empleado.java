@@ -25,24 +25,24 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "EMPLOYEE", catalog = "empresa_prueba_ud3")
-public class Employee implements java.io.Serializable {
+public class Empleado implements java.io.Serializable {
 
 	private Integer employeeno;
 	private Department department;
-	private Employee employee;
+	private Empleado employee;
 	private String ename;
 	private String job;
 	private Date hiredate;
 	private BigDecimal sal;
 	private BigDecimal comm;
 	private Set<Account> accounts = new HashSet<Account>(0);
-	private Set<Employee> employees = new HashSet<Employee>(0);
+	private Set<Empleado> employees = new HashSet<Empleado>(0);
 
-	public Employee() {
+	public Empleado() {
 	}
 
-	public Employee(Department department, Employee employee, String ename, String job, Date hiredate, BigDecimal sal,
-			BigDecimal comm, Set<Account> accounts, Set<Employee> employees) {
+	public Empleado(Department department, Empleado employee, String ename, String job, Date hiredate, BigDecimal sal,
+			BigDecimal comm, Set<Account> accounts, Set<Empleado> employees) {
 		this.department = department;
 		this.employee = employee;
 		this.ename = ename;
@@ -78,11 +78,11 @@ public class Employee implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MGR")
-	public Employee getEmployee() {
+	public Empleado getEmployee() {
 		return this.employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(Empleado employee) {
 		this.employee = employee;
 	}
 
@@ -145,11 +145,11 @@ public class Employee implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
-	public Set<Employee> getEmployees() {
+	public Set<Empleado> getEmployees() {
 		return this.employees;
 	}
 
-	public void setEmployees(Set<Employee> employees) {
+	public void setEmployees(Set<Empleado> employees) {
 		this.employees = employees;
 	}
 
