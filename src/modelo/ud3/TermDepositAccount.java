@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
-@PrimaryKeyJoinColumn(name="accountAccountno")
+@Table(name="TERM_DEPOSIT_ACCOUNT")
+@PrimaryKeyJoinColumn(name="account_id")
 public class TermDepositAccount extends Account implements Serializable {
 	private float interes;
 	private int plazo_meses;
