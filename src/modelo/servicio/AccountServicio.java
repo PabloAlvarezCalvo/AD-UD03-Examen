@@ -206,14 +206,16 @@ public class AccountServicio implements IAccountServicio {
 				//Aquí la modificación para persistir con Orphan Delete
 				//No funciona, solo borra las cuentas con el único titular porque no es capaz de iterar
 				
-				Set<Empleado> titulares = account.getEmployees();	
-				for (Empleado t : titulares) {
-					t.getAccounts().remove(account);
-					account.getEmployees().remove(t);
+				while(account.getEmployees() != null) {
+					Set<Empleado> titulares = account.getEmployees();
+					
+					Iterator<Empleado> iterador = account.getEmployees().iterator();
+					Empleado titular = iterador.next();
+					titular.getAccounts().remove(account);
+					account.getEmployees().remove(titular);
 				}
 				
 				session.remove(account);
-				
 				
 			} else {
 				throw new InstanceNotFoundException(Account.class.getName() + " id: " + accId);
